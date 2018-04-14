@@ -1,0 +1,31 @@
+ <!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+ <hibernate-configuration>
+ 
+    <session-factory>
+ 		
+ 		<!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.DerbyDialect</property>
+        
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
+        <property name="connection.url">jdbc:derby:testDB;user=dinesh;password=joshi;create=true</property>
+        <property name="connection.username">dinesh</property>
+        <property name="connection.password">joshi</property>
+         
+        <property name="hibernate.default_schema">dinesh</property>
+ 
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">10</property>
+ 		<property name="show_sql">true</property>
+ 		<property name="hibernate.generate_statistics">true</property>
+ 		
+ 		<property name="hibernate.jdbc.batch_size">20</property>
+ 		<property name="hibernate.default_entity_mode">dynamic-map</property>
+ 		
+ 		<mapping resource="Employee_BATCH.hbm.xml" />
+        <mapping resource="Dynamic_Species.hbm.xml" />
+        <mapping resource="Employee_InheritenceTPH.hbm.xml" />
+        
+ 	</session-factory>
+ 
+</hibernate-configuration>

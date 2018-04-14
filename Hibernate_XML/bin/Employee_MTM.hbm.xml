@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.test.hibernate.xml.pojo.mapping.association.mtm.Employee"
+		table="EMPLOYEE_MTM">
+		<meta attribute="class-description">
+			This class contains the employee detail.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		
+		<set name="certificates" cascade="save-update" table="EMPLOYEE_CERTIFICATE_MTM">
+			<key column="employee_id" />
+			<many-to-many column="certificate_id"
+				class="com.test.hibernate.xml.pojo.mapping.association.mtm.Certificate" />
+		</set>
+		
+		<property name="firstName" type="string" column="first_name" />
+		<property name="lastName" type="string" column="last_name" />
+		<property name="salary" type="int" column="salary" />
+
+		
+		
+	</class>
+
+
+	<class
+		name="com.test.hibernate.xml.pojo.mapping.association.mtm.Certificate"
+		table="CERTIFICATE_MTM">
+		<meta attribute="class-description">
+			This class contains the Certificate details.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<property name="name" type="string" column="certificate_name" />
+		
+	</class>
+
+</hibernate-mapping>

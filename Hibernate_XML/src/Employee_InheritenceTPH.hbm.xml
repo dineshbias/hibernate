@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.test.hibernate.xml.pojo.inheritence.entity.Employee"
+		table="EMPLOYEE_INHERITENCE_TPH" discriminator-value="emp">
+		<meta attribute="class-description">
+			This table has been created to test Table Per Hierarchy Inheritence
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<discriminator type="string" column="type"  />
+		<property name="name" type="string" column="name" />
+		
+		<subclass name="com.test.hibernate.xml.pojo.inheritence.entity.RegularEmployee" discriminator-value="reg_emp">
+			<property name="salary" type="int" column="salary"/>
+			<property name="bonus" type="int" column="bonus"/>
+		</subclass>
+		
+		<subclass name="com.test.hibernate.xml.pojo.inheritence.entity.ContractEmployee" discriminator-value="contract_emp">
+			<property name="payPerHour" type="int" column="pay_per_hour"/>
+			<property name="contractDuration" type="string" column="contract_duration"/>
+		</subclass>
+		
+	</class>
+
+</hibernate-mapping>

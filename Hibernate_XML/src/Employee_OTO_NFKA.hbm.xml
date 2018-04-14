@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class
+		name="com.test.hibernate.xml.pojo.mapping.association.oto.nfka.Employee"
+		table="EMPLOYEE_OTO_NFKA">
+		<meta attribute="class-description">
+			This class contains the employee detail.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="increment" />
+		</id>
+		<property name="firstName" type="string" column="first_name" />
+		<property name="lastName" type="string" column="last_name" />
+		<property name="salary" type="int" column="salary" />
+
+		<one-to-one name="addr"
+			class="com.test.hibernate.xml.pojo.mapping.association.oto.nfka.Address"
+			cascade="all" />
+
+
+	</class>
+
+
+	<class
+		name="com.test.hibernate.xml.pojo.mapping.association.oto.nfka.Address"
+		table="ADDRESS_OTO_NFKA">
+		<meta attribute="class-description">
+			This class contains the Address details.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="foreign">
+				<param name="property">employee</param>
+			</generator>
+		</id>
+		<property name="streetName" type="string" column="street_name" />
+		<property name="cityName" type="string" column="city_name" />
+		<property name="stateName" type="string" column="state_name" />
+		<property name="zipcode" type="string" column="zipcode" />
+
+		<one-to-one name="employee"
+			class="com.test.hibernate.xml.pojo.mapping.association.oto.nfka.Employee"
+			constrained="true" />
+
+	</class>
+
+</hibernate-mapping>

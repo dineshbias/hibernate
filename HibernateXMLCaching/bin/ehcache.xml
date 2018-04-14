@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<ehcache>
+	<diskStore path="C:\CodeBase" />
+	<defaultCache maxElementsInMemory="5" eternal="false"	timeToIdleSeconds="8" timeToLiveSeconds="4" />
+	<cache name="com.hibernate.entity.EmployeeC" maxElementsInMemory="5" eternal="false" timeToIdleSeconds="10" timeToLiveSeconds="6" />
+</ehcache>
