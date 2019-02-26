@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.test.hibernate.xml.transaction.Accounts"
+		table="Accounts">
+		<meta attribute="class-description">
+			This class contains the accounts detail.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<property name="name" type="string" column="name" />
+		<property name="currentBalance" type="int" column="current_balance" />
+	</class>
+
+	<class name="com.test.hibernate.xml.transaction.TransactionHistory"
+		table="Transaction_History">
+		<meta attribute="class-description">
+			This class contains the transactions detail.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		<property name="account_id" type="int" column="accountId" />
+		<property name="balanceBefore" type="int" column="balance_before" />
+		<property name="balanceAfter" type="int" column="balance_after" />
+		<property name="transactionAmount" type="int" column="transaction_amount" />
+		<property name="type" type="string" column="type" />
+		<property name="accountId" type="int" column="transaction_date" />
+	</class>
+	
+</hibernate-mapping>

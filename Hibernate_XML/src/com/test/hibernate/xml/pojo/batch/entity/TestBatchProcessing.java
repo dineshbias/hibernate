@@ -24,20 +24,21 @@ public class TestBatchProcessing {
 
 	public static void main(String[] args) {
 		System.out.println(Thread.currentThread().getName() + " " + TestBatchProcessing.class + " main started ");
-		printNumberOfRows();
+		printNumberOfRows(null);
 		testBatchInserts(50);
 		testBatchUpdates();
 		deleteRecords();
-		printNumberOfRows();
+		printNumberOfRows(null);
 		System.out.println(Thread.currentThread().getName() + " " + TestBatchProcessing.class + " closing factory ");
 		factory.close();
 		System.out.println(Thread.currentThread().getName() + " " + TestBatchProcessing.class + " main exit ");
 	}
 
-	public static void printNumberOfRows() {
+	public static void printNumberOfRows(Session session) {
 		
-
-		Session session = factory.openSession();
+		if(null==session)
+			session = factory.openSession();
+		
 		try {
 			Query query = session
 					.createQuery("SELECT count(*) FROM com.test.hibernate.xml.pojo.batch.entity.EmployeeB");
@@ -45,7 +46,11 @@ public class TestBatchProcessing {
 			System.out
 			.println(Thread.currentThread().getName() + " " + TestBatchProcessing.class + " printNumberOfRows .. " + count);
 
-		} finally {
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+			finally {
+		
 			System.out
 					.println(Thread.currentThread().getName() + " " + TestBatchProcessing.class + " Closing session ");
 			session.close();
@@ -65,10 +70,12 @@ public class TestBatchProcessing {
 			EmployeeB employeeB = new EmployeeB("Ramesh" + i, "Kumar" + i, 1000 + i, "SUBHASH" + i, "ROORKEE",
 					"UTTARAKHAND", "247667");
 			session.save(employeeB);
-
+			
+			
 			if (i % 20 == 0) {
 				session.flush();
 				session.clear();
+				
 			}
 		}
 

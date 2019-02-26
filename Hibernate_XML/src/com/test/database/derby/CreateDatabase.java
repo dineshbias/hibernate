@@ -15,9 +15,20 @@ import java.sql.Statement;
  */
 public class CreateDatabase {
 
+	private final static String CREATE_ACCOUNTS = "create table Accounts"
+			+ " ( id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,INCREMENT BY 1)"
+			+ " , name VARCHAR(40) default NULL, current_balance INT default NULL, PRIMARY KEY (id) )";
+
+	private final static String CREATE_TRANSACTION_HISTORY = "CREATE TABLE Transaction_History(id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,INCREMENT BY 1)"
+			+ ", account_id integer references Accounts(id), balance_before integer, balance_after integer , transaction_amount integer , type VARCHAR(255), transaction_date TIMESTAMP)";
+
 	private final static String CREATE_SPECIES = "CREATE TABLE species( " + "id INTEGER PRIMARY KEY,"
 			+ " name VARCHAR(255) , " + "num_acres DECIMAL)";
 	private final static String CREATE_ANIMAL = "CREATE TABLE animal(id INTEGER PRIMARY KEY, species_id integer , name VARCHAR(255), date_born TIMESTAMP)";
+
+	private final static String CREATE_EMPLOYEE = "create table EMPLOYEE_SIMPLE"
+			+ " ( id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,INCREMENT BY 1)"
+			+ " , first_name VARCHAR(20) default NULL, last_name VARCHAR(20) default NULL, salary INT default NULL, PRIMARY KEY (id) )";
 
 	private final static String CREATE_EMPLOYEE_LIST = "create table EMPLOYEE"
 			+ " ( id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,INCREMENT BY 1)"
@@ -142,8 +153,8 @@ public class CreateDatabase {
 		// String url = "jdbc:derby:application;create=true";
 		String url = "jdbc:derby:testDB;user=dinesh;password=joshi;create=true";
 		try (Connection conn = DriverManager.getConnection(url); Statement stmt = conn.createStatement()) {
-			//createTables(stmt);
-			//insertData(stmt);
+			createTables(stmt);
+			// insertData(stmt);
 			fetchDataCertificateList(stmt);
 			fetchDataEmployeeList(stmt);
 			fetchDataCertificateSet(stmt);
@@ -171,7 +182,14 @@ public class CreateDatabase {
 	}
 
 	public static void createTables(Statement stmt) throws SQLException {
+		
 		System.out.println("Creating DB");
+		stmt.executeUpdate(CREATE_ACCOUNTS);
+		stmt.executeUpdate(CREATE_TRANSACTION_HISTORY);
+		
+		/*
+		stmt.executeUpdate(CREATE_EMPLOYEE);
+
 		stmt.executeUpdate(CREATE_SPECIES);
 		stmt.executeUpdate(CREATE_ANIMAL);
 		stmt.executeUpdate(CREATE_EMPLOYEE_LIST);
@@ -194,10 +212,12 @@ public class CreateDatabase {
 		stmt.executeUpdate(CREATE_EMPLOYEE_COMPONENT);
 		stmt.executeUpdate(CREATE_EMPLOYEE_BATCH);
 		stmt.executeUpdate(CREATE_EMPLOYEE_INHERITENCE_TPH);
+		*/
 	}
 
 	public static void insertData(Statement stmt) throws SQLException {
 		System.out.println("Inserting Data");
+		
 		stmt.execute("INSERT into species values(1,'African Elephant',7.5)");
 		stmt.execute("INSERT into species values(2,'Zebra',1.2)");
 
@@ -206,6 +226,7 @@ public class CreateDatabase {
 		stmt.execute("INSERT into animal values(3,1,'Ester','2002-05-06 03:15:00')");
 		stmt.execute("INSERT into animal values(4,1,'Eddie','2010-05-06 07:15:00')");
 		stmt.execute("INSERT into animal values(5,2,'Zoe','2005-05-06 08:15:00')");
+	
 	}
 
 	public static void fetchDataCertificateList(Statement stmt) throws SQLException {

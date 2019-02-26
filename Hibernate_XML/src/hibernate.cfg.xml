@@ -28,6 +28,9 @@
  		<mapping resource="Employee_OTO_NFKA.hbm.xml" />
  		<mapping resource="Employee_MTM.hbm.xml" />
  		<mapping resource="Employee_Component.hbm.xml" />
+ 		<mapping resource="Employee.hbm.xml" />
+ 		<mapping resource="Accounts.hbm.xml" />
+ 		
     </session-factory>
  
 </hibernate-configuration>
